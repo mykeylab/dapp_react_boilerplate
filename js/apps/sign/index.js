@@ -37,6 +37,14 @@ export default function Sign() {
         >
           EOS
         </div>
+        <div
+          className={`chain ${chain === 'TRON' ? 'active' : ''}`}
+          onClick={() => {
+            setChain('TRON');
+          }}
+        >
+          TRON
+        </div>
       </div>
       <div className="title">{intl['common.签名数据']}</div>
       <Input value={msg} onChange={(v) => setMsg(v)} />
