@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { IntlContext } from 'js/locals';
+import React, { useEffect, useState } from 'react';
+import { useIntl } from 'js/locals';
 import { setTitle, sign } from 'js/utils/myk';
 import Input from 'js/components/input';
 import { Button, Toast } from 'antd-mobile';
@@ -8,7 +8,7 @@ import copyIcon from 'img/copy.png';
 import { StyledIndex } from './style';
 
 export default function Sign() {
-  const intl = useContext(IntlContext);
+  const intl = useIntl();
   const [msg, setMsg] = useState('');
   const [chain, setChain] = useState('ETH');
   const [result, setResult] = useState('');

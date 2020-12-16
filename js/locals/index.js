@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import _ from 'lodash';
@@ -50,21 +50,56 @@ const langs = _.reduce(
 );
 
 const Context = React.createContext();
+const SetContext = React.createContext();
+
 export const IntlContext = Context;
 
-export default function Inter(props) {
-  const { locale, children } = props;
+export default function Intl(props) {
+  const { children } = props;
+  const [locale, setLocale] = useState('en');
+  useEffect(() => {
+    const storeLang = window.localStorage.getItem('DAPP_KEY_LANG');
+    let initLocale = storeLang || 'en';
+    if (location.search.includes('en-US')) {
+      initLocale = 'en';
+      // window.localStorage.setItem('DAPP_KEY_LANG', 'en');
+    } else if (location.search.includes('zh-CN')) {
+      initLocale = 'zh';
+      // window.localStorage.setItem('DAPP_KEY_LANG', 'zh');
+    } else if (location.search.includes('ko-KR')) {
+      initLocale = 'ko';
+      // window.localStorage.setItem('DAPP_KEY_LANG', 'ko');
+    } else if (location.search.includes('ja-JP')) {
+      initLocale = 'ja';
+      // window.localStorage.setItem('DAPP_KEY_LANG', 'ja');
+    } else if (!storeLang) {
+      const language = (navigator.language || navigator.browserLanguage).split(
+        '-'
+      )[0];
+      if (['zh', 'en', 'ko', 'ja'].includes(language)) {
+        initLocale = language;
+      }
+    }
+    setLocale(initLocale);
+  }, []);
+
   const localeMessage = chooseLocale(locale);
   localeMessage.language = locale;
   window.intl = localeMessage;
   window.locale = locale;
-  return <Context.Provider value={localeMessage}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={localeMessage}>
+      <SetContext.Provider value={{ locale, setLocale }}>
+        {children}
+      </SetContext.Provider>
+    </Context.Provider>
+  );
 }
 
-Inter.propTypes = {
-  locale: PropTypes.string,
+Intl.propTypes = {
   children: PropTypes.any,
 };
+
 function chooseLocale(val) {
   const _val = val;
   switch (_val) {
@@ -79,4 +114,12 @@ function chooseLocale(val) {
     default:
       return langs.en_US;
   }
+}
+
+export function useSetLocale() {
+  return useContext(SetContext);
+}
+
+export function useIntl() {
+  return useContext(Context);
 }

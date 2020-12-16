@@ -1,6 +1,5 @@
-import _ from 'lodash';
-import React, { useEffect, useState, useContext } from 'react';
-import { IntlContext } from 'js/locals';
+import React, { useEffect, useState } from 'react';
+import { useIntl } from 'js/locals';
 import { setTitle } from 'js/utils/myk';
 import Input from 'js/components/input';
 import { Button } from 'antd-mobile';
@@ -10,7 +9,7 @@ import { StyledIndex } from './style';
 import tokens from './tokens';
 
 export default function Transfer() {
-  const intl = useContext(IntlContext);
+  const intl = useIntl();
   const [token, chooseToken] = useState(tokens[0]);
   const [address, setAddress] = useState('');
   const [num, setNum] = useState('');

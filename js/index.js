@@ -2,11 +2,17 @@ import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import runtime from 'offline-plugin/runtime';
+import Intl from './locals';
 
 import Root from './root';
 import '../style/main.less';
 
-render(<Root />, document.getElementById('root'));
+render(
+  <Intl>
+    <Root />
+  </Intl>,
+  document.getElementById('root')
+);
 
 if (module.hot) {
   module.hot.accept();
