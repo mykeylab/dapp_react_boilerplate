@@ -8,7 +8,7 @@ import GlobalStyled from './global-styles';
 // import { useSetLocale } from './locals';
 
 export default function root() {
-  // const [locale, setLocale] = useSetLocale()
+  // const {locale, setLocale} = useSetLocale()
   return (
     <>
       <Router history={history}>

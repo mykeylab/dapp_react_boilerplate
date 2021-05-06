@@ -1,7 +1,7 @@
 {
-  "name": "degate",
+  "name": "mykey_dapp_boilerplate",
   "version": "1.0.0",
-  "description": "degate h5",
+  "description": "mykey dapp boilerplate",
   "author": "guangliang.chen",
   "main": "server.js",
   "moduleRoots": ".",

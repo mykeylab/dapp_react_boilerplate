@@ -51,7 +51,7 @@ export default function Transfer() {
         />
       </div>
       <div className="title">{intl['common.转账数量']}</div>
-      <Input value={num} onChange={(v) => setNum(v)} />
+      <Input value={num} onChange={(e) => setNum(e.target.value)} />
       <Button
         type="primary"
         onClick={() => {
